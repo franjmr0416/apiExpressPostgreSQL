@@ -11,6 +11,12 @@ const getById = async(req, res)=> {
   const response = await db.query('SELECT * FROM receta WHERE id = $1',[id]);
   res.json(response.rows);
 };
+//get datos receta médica completa
+const getReceta = async(req, res) =>{
+  const id = parseInt(req.params.id);
+  const response = await db.query("select r.dosis, m.medicamento, concat(u.nombre,' ', u.apellidos) as Medico, c.fecha from receta r inner join consulta c on c.id = r.idconsulta inner join medicamento m on m.id = r.idmedicamento inner join usuario u on u.id = c.idmedico where c.id = $1;",[id]);
+  res.json(response.rows);
+};
 //create
 const create = async (req, res) => {
   const { dosis, idmedicamento, idconsulta } = req.body;
@@ -41,5 +47,6 @@ module.exports = {
   getById,
   create,
   update,
-  deleteById
+  deleteById,
+  getReceta
 };

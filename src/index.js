@@ -23,8 +23,8 @@ app.use(express.urlencoded({
     extended:true
 }));
 
-app.get("/main", (req, res) =>{
-    res.send("hello world!");
+app.get("/", (req, res) =>{
+    res.send("WELLCOME API COVID");
 });
 
 //configure the app

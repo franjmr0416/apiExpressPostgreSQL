@@ -11,6 +11,17 @@ const getById = async(req, res)=> {
   const response = await db.query('SELECT * FROM ordenprueba WHERE id = $1',[id]);
   res.json(response.rows);
 };
+//get by idUsuario
+const getByIdUsuario = async(req, res) =>{
+  const id = parseInt(req.params.id);
+  const response = await db.query('SELECT * FROM ordenprueba WHERE idusuario = $1',[id]);
+  if(response.rows.length != 0){
+    res.json(response.rows);
+  }else{
+    res.json({error: 'NO cuenta con ordenes de prueba'});
+  }
+  
+};
 //create
 const create = async (req, res) => {
   const { resultado, fecha, idusuario, idtipo } = req.body;
@@ -53,5 +64,6 @@ module.exports = {
   getById,
   create,
   update,
-  deleteById
+  deleteById,
+  getByIdUsuario
 };

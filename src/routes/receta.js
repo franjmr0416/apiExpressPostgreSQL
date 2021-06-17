@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 
-const {getAll, getById, create, update, deleteById} = require('../controllers/receta');
+const {getAll, getById, create, update, deleteById, getReceta} = require('../controllers/receta');
 
 //Get all
 router.get('/receta', getAll);
@@ -13,5 +13,7 @@ router.post('/receta',create);
 router.put('/receta/:id',update);
 //Delete
 router.delete('/receta/:id', deleteById);
+//get receta armada
+router.get('/receta/imprimir/:id', getReceta);
 
 module.exports = router;

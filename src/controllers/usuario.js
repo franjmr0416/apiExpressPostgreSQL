@@ -11,6 +11,46 @@ const getById = async(req, res)=> {
   const response = await db.query('SELECT * FROM usuario WHERE id = $1',[id]);
   res.json(response.rows);
 };
+//get Login
+const getbyEmailPass = async(req, res)=>{
+  const email = req.body.email;
+  const password = req.body.password;
+  const response = await db.query("select u.id, u.nombre, u.apellidos, u.email, a.carreradepto, t.tipo from usuario u inner join area a on a.id = u.idarea inner join tipousuario t on t.id = u.idtipo where u.email= $1 and u.clave = $2;",[email, password]);
+  if(response.rows.length != 0){
+    res.json(response.rows);
+  }else{
+    res.json({error:'Usuario y/o contraseña incorrectos'});
+  }
+};
+//get Citas o Consultas by Id
+const getCitas = async(req, res) =>{
+  const id = parseInt(req.params.id);
+  const response = await db.query("select c.id, c.fecha as Fecha, concat(u2.nombre,' ', u2.apellidos) as Medico, c.tipocita as Modalidad, c.descripcion as Descripcion, c.sospechoso from usuario u inner join consulta c on u.id = c.idpaciente inner join usuario u2 on u2.id = c.idmedico where u.id = $1;",
+  [id]
+  );
+  if(response.rows.length != 0){
+    res.json(response.rows);
+  }else{
+    res.json({error: 'Aún no cuenta con citas medicas'});
+  }
+  
+};
+//get pruebas Vista Estudiante Home
+const getPruebas = async(req, res) =>{
+  const id = parseInt(req.params.id);
+  const response = await db.query("select o.id, o.fecha, t.tipoprueba, o.resultado from usuario u inner join ordenprueba o on u.id = o.idusuario inner join tipoprueba t on t.id = o.idtipo where u.id = $1;",[id]);
+  if(response.rows != 0){
+    res.json(response.rows);
+  }else{
+    res.json({error: 'No existen citas'});
+  }
+};
+// get contenido reporte Prueba
+const getContPrueba = async(req, res) =>{
+  const id = parseInt(req.params.id);
+  const response = await db.query("select concat(u.nombre, ' ', u.apellidos) as nombre, t.tipoprueba, o.fecha, o.resultado from usuario u inner join ordenprueba o on u.id = o.idusuario inner join tipoprueba t on t.id = o.idtipo where o.id = $1;",[id]);
+  res.json(response.rows);
+};
 //create
 const create = async (req, res) => {
   const { nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion } = req.body;
@@ -44,5 +84,9 @@ module.exports = {
   getById,
   create,
   update,
-  deleteById
+  deleteById,
+  getbyEmailPass,
+  getCitas,
+  getPruebas,
+  getContPrueba
 };
