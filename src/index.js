@@ -2,6 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
+const aws = require('aws-sdk');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
+const multerS3 = require('multer-s3');
+const { uploadFile } = require('./config/s3');
+
 //import the Routes
 const areaRoutes = require('./routes/area');
 const tipoUsuarioRoutes = require('./routes/tipoUsuario');
@@ -16,6 +23,7 @@ const consultaRoutes = require('./routes/consulta');
 const usuarioRoutes = require('./routes/usuario');
 const evidenciasRoutes = require('./routes/evidencias');
 const alertaRoutes = require('./routes/alerta');
+const cuestionariosRoutes = require('./routes/preguntaEncuesta');
 
 app.use(express.json());
 app.use(cors());
@@ -41,6 +49,15 @@ app.use(consultaRoutes);
 app.use(usuarioRoutes);
 app.use(evidenciasRoutes);
 app.use(alertaRoutes);
+app.use(cuestionariosRoutes);
+
+app.post('/images', upload.single('image'), async (req, res) => {
+    const file = req.file
+    console.log(file)
+    const result = await uploadFile(file)
+    console.log(result)
+    res.send("👌")
+})
 
 const PORT = process.env.PORT || 4000;
 

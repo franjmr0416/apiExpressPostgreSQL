@@ -77,7 +77,18 @@ const deleteById = async (req, res) => {
   await db.query('DELETE FROM usuario where id = $1', [id]);
   res.json(`usuario ${id} deleted Successfully`);
 };
-
+//get usuarios por tipo usuario
+const getBytipo = async (req, res) =>{
+  const tipo = req.params.tipo;
+  const response = await db.query("select u.id, u.nombre, u.apellidos from usuario u inner join tipousuario t on t.id = u.idtipo where t.tipo = $1;",[tipo]);
+  res.json(response.rows);
+};
+//get info usuarios para tabla
+const getTabla = async(req, res) =>{
+  const response = await db.query("select u.id, u.nombre, u.apellidos, u.nacimiento, u.email, u.direccion, t.tipo, a.carreradepto from usuario u inner join tipousuario t on t.id = u.idtipo inner join area a on a.id = u.idarea;");
+  res.json(response.rows);
+};
+//
 
 module.exports = {
   getAll,
@@ -88,5 +99,7 @@ module.exports = {
   getbyEmailPass,
   getCitas,
   getPruebas,
-  getContPrueba
+  getContPrueba,
+  getBytipo,
+  getTabla
 };

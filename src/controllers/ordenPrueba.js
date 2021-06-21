@@ -14,13 +14,18 @@ const getById = async(req, res)=> {
 //get by idUsuario
 const getByIdUsuario = async(req, res) =>{
   const id = parseInt(req.params.id);
-  const response = await db.query('SELECT * FROM ordenprueba WHERE idusuario = $1',[id]);
+  const response = await db.query("select o.id, o.fecha, o.resultado, t.tipoprueba from ordenprueba o inner join tipoprueba t on t.id = o.idtipo where o.idusuario = $1;",[id]);
   if(response.rows.length != 0){
     res.json(response.rows);
   }else{
     res.json({error: 'NO cuenta con ordenes de prueba'});
   }
   
+};
+//get * con nombre tipo prueba y usuario
+const getAllConNombres = async(req, res)=>{
+  const response = await db.query("select o.id as id_orden_prueba, o.resultado, o.fecha, t.tipoprueba, u.id as id_usuario, concat(u.nombre,' ', u.apellidos) as nombre from usuario u inner join ordenprueba o on u.id = o.idusuario inner join tipoprueba t on t.id = o.idtipo;");
+  res.json(response.rows);
 };
 //create
 const create = async (req, res) => {
@@ -65,5 +70,6 @@ module.exports = {
   create,
   update,
   deleteById,
-  getByIdUsuario
+  getByIdUsuario,
+  getAllConNombres
 };

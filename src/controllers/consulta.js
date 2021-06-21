@@ -13,9 +13,9 @@ const getById = async(req, res)=> {
 };
 //create
 const create = async (req, res) => {
-  const { fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente } = req.body;
-  const response = await db.query('INSERT INTO consulta (fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente ) VALUES ($1, $2, $3, $4, $5, $6)', 
-  [fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente]);
+  const { fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora } = req.body;
+  const response = await db.query('INSERT INTO consulta (fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora ) VALUES ($1, $2, $3, $4, $5, $6, $7)', 
+  [fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora]);
   res.json({
       message: 'consulta Added successfully'
   })
@@ -23,10 +23,10 @@ const create = async (req, res) => {
 //update
 const update = async (req, res) => {
   const id = parseInt(req.params.id);
-  const { fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente } = req.body;
+  const { fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora } = req.body;
 
-  const response =await db.query('UPDATE consulta SET fecha =$2, descripcion =$3, tipocita =$4, sospechoso =$5, idmedico =$6, idpaciente =$7 WHERE id = $1', 
-  [id, fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente]);
+  const response =await db.query('UPDATE consulta SET fecha =$2, descripcion =$3, tipocita =$4, sospechoso =$5, idmedico =$6, idpaciente =$7, hora=$8 WHERE id = $1', 
+  [id, fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora]);
   res.json('consulta Updated Successfully');
 };
 //delete
