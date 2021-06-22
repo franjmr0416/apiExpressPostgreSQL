@@ -37,12 +37,17 @@ const deleteById = async (req, res) => {
   await db.query('DELETE FROM area where id = $1', [id]);
   res.json(`Area ${id} deleted Successfully`);
 };
-
-
+//get by nombre area
+const getByArea = async (req, res) =>{
+  const area =  req.body.area;
+  const response = await db.query("select * from area where carreradepto= $1", [area]);
+  res.json(response.rows);
+}
 module.exports = {
   getAll,
   getById,
   create,
   update,
-  deleteById
+  deleteById,
+  getByArea
 };

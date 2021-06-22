@@ -1,3 +1,4 @@
+const { response } = require("express");
 const db = require("../config/db");
 
 //get all
@@ -37,12 +38,18 @@ const deleteById = async (req, res) => {
   await db.query('DELETE FROM tipousuario where id = $1', [id]);
   res.json(`TipoUser ${id} deleted Successfully`);
 };
-
+//get by tipo
+const getByTipo = async(req, res) =>{
+  const tipo = req.params.tipo;
+  const response = await db.query("select * from tipousuario where tipo= $1",[tipo]);
+  res.json(response.rows);
+};
 
 module.exports = {
   getAll,
   getById,
   create,
   update,
-  deleteById
+  deleteById,
+  getByTipo
 };
