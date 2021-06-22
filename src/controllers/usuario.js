@@ -25,7 +25,7 @@ const getbyEmailPass = async(req, res)=>{
 //get Citas o Consultas by Id
 const getCitas = async(req, res) =>{
   const id = parseInt(req.params.id);
-  const response = await db.query("select c.id, c.fecha as Fecha, concat(u2.nombre,' ', u2.apellidos) as Medico, c.tipocita as Modalidad, c.descripcion as Descripcion, c.sospechoso from usuario u inner join consulta c on u.id = c.idpaciente inner join usuario u2 on u2.id = c.idmedico where u.id = $1;",
+  const response = await db.query("select c.id, c.fecha as Fecha, c.hora, concat(u2.nombre,' ', u2.apellidos) as Medico, c.tipocita as Modalidad, c.descripcion as Descripcion, c.sospechoso from usuario u inner join consulta c on u.id = c.idpaciente inner join usuario u2 on u2.id = c.idmedico where u.id = $1;",
   [id]
   );
   if(response.rows.length != 0){
