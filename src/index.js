@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+const {upload} = require('./libs/multer');
 
 //import the Routes
 const areaRoutes = require('./routes/area');
@@ -48,6 +48,22 @@ app.use(alertaRoutes);
 app.use(cuestionariosRoutes);
 app.use(archivosRoutes);
 
+
+app.use(upload);
+
+
+app.post('/upload', function (request, response, next) {
+upload(request, response, function (error) {
+  console.log(request.file);
+    if (error) {
+    console.log(error);
+    //return response("error");
+    }
+    //console.log('File uploaded successfully.');
+    response.send("subido");
+
+});
+});
 
 const PORT = process.env.PORT || 4000;
 

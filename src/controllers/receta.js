@@ -1,6 +1,5 @@
 const db = require("../config/db");
-const jspdf = require('jspdf');
-const doc = new jspdf.jsPDF;
+
 //get all
 const getAll = async(req, res)=> {
   const response = await db.query('SELECT * FROM receta').catch(console.log);
@@ -17,17 +16,6 @@ const getReceta = async(req, res) =>{
   const id = parseInt(req.params.id);
   const response = await db.query("select r.dosis, m.medicamento, concat(u.nombre,' ', u.apellidos) as Medico, c.fecha from receta r inner join consulta c on c.id = r.idconsulta inner join medicamento m on m.id = r.idmedicamento inner join usuario u on u.id = c.idmedico where c.id = $1;",[id]);
   res.json(response.rows);
-  doc.setTextColor(3, 4, 94);
-  doc.text("TECNM EN CELAYA",10,10);
-  doc.setTextColor('Black');
-  doc.text("Receta médica", 10, 20);
-  doc.text("Fecha: ",120,30);
-  doc.text("Médico: ",10,30);
-  doc.text("Paciente: ",10,40);
-  doc.text("Indicaciones:",10,50);
-  //doc.output('dataurlnewwindow');
-  //doc.save("receta.pdf");
-  
 };
 //create
 const create = async (req, res) => {
