@@ -53,9 +53,9 @@ const getContPrueba = async(req, res) =>{
 };
 //create
 const create = async (req, res) => {
-  const { nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion } = req.body;
-  const response = await db.query('INSERT INTO usuario (nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
-  [nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion]);
+  const { nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion, estatus } = req.body;
+  const response = await db.query('INSERT INTO usuario (nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion, estatus) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', 
+  [nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion, estatus]);
   res.json({
       message: 'usuario Added successfully'
   })
@@ -63,11 +63,11 @@ const create = async (req, res) => {
 //update
 const update = async (req, res) => {
   const id = parseInt(req.params.id);
-  const { nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion } = req.body;
+  const { nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion, estatus } = req.body;
 
-  const response =await db.query('UPDATE usuario SET nombre =$2, apellidos =$3, nacimiento =$4, clave =$5, email =$6, idarea =$7, idtipo =$8, direccion =$9 WHERE id = $1', 
+  const response =await db.query('UPDATE usuario SET nombre =$2, apellidos =$3, nacimiento =$4, clave =$5, email =$6, idarea =$7, idtipo =$8, direccion =$9, estatus =$10 WHERE id = $1', 
   [
-      id, nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion
+      id, nombre, apellidos, nacimiento, clave, email, idarea, idtipo, direccion, estatus
   ]);
   res.json('usuario Updated Successfully');
 };
