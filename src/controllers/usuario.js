@@ -85,7 +85,7 @@ const getBytipo = async (req, res) =>{
 };
 //get info usuarios para tabla
 const getTabla = async(req, res) =>{
-  const response = await db.query("select u.id, u.nombre, u.apellidos, u.nacimiento, u.email, u.clave, u.direccion, t.tipo, a.carreradepto from usuario u inner join tipousuario t on t.id = u.idtipo inner join area a on a.id = u.idarea;");
+  const response = await db.query("select u.id, u.nombre, u.apellidos, u.nacimiento, u.email, u.clave, u.direccion, u.estatus, t.tipo, a.carreradepto from usuario u inner join tipousuario t on t.id = u.idtipo inner join area a on a.id = u.idarea;");
   res.json(response.rows);
 };
 //

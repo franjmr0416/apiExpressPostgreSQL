@@ -49,7 +49,7 @@ app.use(alertaRoutes);
 app.use(cuestionariosRoutes);
 app.use(archivosRoutes);
 
-
+/*
 app.use(upload);
 
 
@@ -65,6 +65,7 @@ upload(request, response, function (error) {
 
 });
 });
+*/
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
