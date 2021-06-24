@@ -20,6 +20,7 @@ const evidenciasRoutes = require('./routes/evidencias');
 const alertaRoutes = require('./routes/alerta');
 const cuestionariosRoutes = require('./routes/preguntaEncuesta');
 const archivosRoutes = require('./routes/s3');
+const reportesRoutes = require('./routes/reportes');
 
 app.use(express.json());
 app.use(cors());
@@ -48,24 +49,9 @@ app.use(evidenciasRoutes);
 app.use(alertaRoutes);
 app.use(cuestionariosRoutes);
 app.use(archivosRoutes);
-
-/*
-app.use(upload);
+app.use(reportesRoutes);
 
 
-app.post('/upload', function (request, response, next) {
-upload(request, response, function (error) {
-  console.log(request.file);
-    if (error) {
-    console.log(error);
-    //return response("error");
-    }
-    //console.log('File uploaded successfully.');
-    response.send("subido");
-
-});
-});
-*/
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
