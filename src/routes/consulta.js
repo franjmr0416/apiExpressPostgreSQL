@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 
-const {getAll, getById, create, update, deleteById} = require('../controllers/consulta');
+const {getAll, getById, create, update, deleteById, getConsultasByMedId} = require('../controllers/consulta');
 
 //Get all
 router.get('/consulta', getAll);
@@ -13,5 +13,7 @@ router.post('/consulta',create);
 router.put('/consulta/:id',update);
 //Delete
 router.delete('/consulta/:id', deleteById);
+//get consultas by id medico
+router.get('/consultasByIdMedico/:id', getConsultasByMedId);
 
 module.exports = router;
