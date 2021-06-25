@@ -13,8 +13,8 @@ const getById = async(req, res)=> {
 };
 //create
 const create = async (req, res) => {
-  const { idmodalidad } = req.body;
-  const response = await db.query('INSERT INTO encuesta (idmodalidad) VALUES ($1)', [idmodalidad]);
+  const { idmodalidad, fecha } = req.body;
+  const response = await db.query('INSERT INTO encuesta (idmodalidad, fecha) VALUES ($1, $2)', [idmodalidad, fecha]);
   res.json({
       message: 'encuesta Added successfully',
       body: {
@@ -25,10 +25,12 @@ const create = async (req, res) => {
 //update
 const update = async (req, res) => {
   const id = parseInt(req.params.id);
-  const { idmodalidad } = req.body;
+  const { idmodalidad, fecha } = req.body;
 
-  const response =await db.query('UPDATE encuesta SET idmodalidad = $1 WHERE id = $2', [
-      idmodalidad,id]);
+  const response =await db.query('UPDATE encuesta SET idmodalidad = $1, fecha = $2 WHERE id = $3', [
+      idmodalidad,
+      fecha,
+      id]);
   res.json('encuesta Updated Successfully');
 };
 //delete
