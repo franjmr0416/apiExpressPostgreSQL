@@ -11,7 +11,8 @@ const {getAll,
         getPruebas,
         getContPrueba,
         getBytipo,
-        getTabla
+        getTabla,
+        getAllInfoPruebas
     } = require('../controllers/usuario');
 
 //Get all
@@ -36,6 +37,7 @@ router.get('/usuario/pruebaReporte/:id', getContPrueba);
 router.get('/usuario/tipo/:tipo', getBytipo);
 //get info usuarios para tabla
 router.get('/usuarioTabla', getTabla);
-
+//punto 4 medico
+router.get('/usuarioAllInfoPruebas', getAllInfoPruebas);
 
 module.exports = router;

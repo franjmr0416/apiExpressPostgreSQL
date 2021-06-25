@@ -88,7 +88,11 @@ const getTabla = async(req, res) =>{
   const response = await db.query("select u.id, u.nombre, u.apellidos, u.nacimiento, u.email, u.clave, u.direccion, u.estatus, t.tipo, a.carreradepto from usuario u inner join tipousuario t on t.id = u.idtipo inner join area a on a.id = u.idarea;");
   res.json(response.rows);
 };
-//
+//punto 4 medico
+const getAllInfoPruebas = async(req, res) =>{
+  const response = await db.query("select o.id as id_prueba, o.fecha, u.id as id_usuario, concat(u.nombre, ' ', u.apellidos) as nombre, u.email, t.id as id_tipoprueba, t.tipoprueba, o.resultado from usuario u inner join ordenprueba o on u.id = o.idusuario inner join tipoprueba t on t.id = o.idtipo;");
+  res.json(response.rows);
+};
 
 module.exports = {
   getAll,
@@ -101,5 +105,6 @@ module.exports = {
   getPruebas,
   getContPrueba,
   getBytipo,
-  getTabla
+  getTabla,
+  getAllInfoPruebas
 };
