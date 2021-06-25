@@ -8,7 +8,7 @@ const getPregRestByEncuesta = async(req, res)=>{
 };
 //get all datos usuario con id encuesta
 const getUsersAndIdEncuesta = async(req, res) =>{
-    const response = await db.query("select u.id, u.nombre, u.apellidos, age(u.nacimiento) as edad, split_part(u.email,'@',1) as noControl, u.estatus, u2.idencuesta from usuario u inner join usuarioencuesta u2 on u.id = u2.idusuario");
+    const response = await db.query("select u.id, u.nombre, u.apellidos, age(u.nacimiento) as edad, split_part(u.email,'@',1) as noControl, u2.idencuesta, e.fecha  from usuario u inner join usuarioencuesta u2 on u.id = u2.idusuario inner join encuesta e on e.id = u2.idencuesta;");
     res.json(response.rows);
 };
 
