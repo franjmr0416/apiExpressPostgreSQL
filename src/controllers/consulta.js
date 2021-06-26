@@ -38,7 +38,7 @@ const deleteById = async (req, res) => {
 //get consultas by id medico
 const getConsultasByMedId = async (req, res) =>{
   const id = parseInt(req.params.id);
-  const response = await db.query("select c.id as id_consulta, u.id as id_paciente, split_part(u.email, '@', 1) as no_control, u.nombre, u.apellidos, c.tipocita, c.descripcion, c.estatus, c.fecha from usuario u inner join consulta c on u.id = c.idpaciente inner join tipousuario t on t.id = u.idtipo where c.idmedico = $1;",[id]);
+  const response = await db.query("select c.id as id_consulta, u.id as id_paciente, split_part(u.email, '@', 1) as no_control, u.nombre, u.apellidos, c.tipocita, c.descripcion, c.estatus, c.fecha from usuario u inner join consulta c on u.id = c.idpaciente inner join tipousuario t on t.id = u.idtipo where c.idmedico = $1 and c.estatus = FALSE;",[id]);
   res.json(response.rows);
 };
 
