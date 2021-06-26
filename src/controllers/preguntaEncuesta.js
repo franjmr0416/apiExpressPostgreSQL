@@ -1,5 +1,16 @@
 const db = require("../config/db");
 
+//get All
+const getAll = async(req, res) =>{
+    const response = await db.query("select * from preguntaencuesta;");
+    res.json(response.rows);
+};
+const create = async(req, res) =>{
+    const { idpregunta, idencuesta, respuesta } = req.body;
+    const response = await db.query("INSERT INTO preguntaencuesta (idpregunta, idencuesta, respuesta) VALUES($1, $2, $3)", [idpregunta, idencuesta, respuesta]);
+    res.json({mensaje: 'Se agrego correctamente'});
+};
+
 //get preguntas con respuestas by id encuesta
 const getPregRestByEncuesta = async(req, res)=>{
     const id = parseInt(req.params.id);
@@ -14,5 +25,7 @@ const getUsersAndIdEncuesta = async(req, res) =>{
 
 module.exports ={
     getPregRestByEncuesta,
-    getUsersAndIdEncuesta
+    getUsersAndIdEncuesta,
+    getAll,
+    create
 };
