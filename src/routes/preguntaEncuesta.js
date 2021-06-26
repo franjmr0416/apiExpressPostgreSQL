@@ -11,7 +11,7 @@ const {
 //get All
 router.get('/preguntaEncuesta', getAll);
 //create
-router.post('preguntaEncuesta', create);
+router.post('/preguntaEncuesta', create);
 
 //get preguntas con respuestas by id encuesta
 router.get('/cuestionario/:id',getPregRestByEncuesta);
