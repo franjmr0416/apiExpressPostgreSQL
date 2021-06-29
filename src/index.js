@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const {upload} = require('./libs/multer');
-
+const bodyparser = require('body-parser');
 
 //import the Routes
 const areaRoutes = require('./routes/area');
@@ -28,10 +28,11 @@ app.use(express.urlencoded({
     extended:true
 }));
 
+
 app.get("/", (req, res) =>{
     res.send("WELLCOME API COVID");
 });
- 
+
 
 //configure the app
 app.use(areaRoutes);

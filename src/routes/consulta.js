@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
-
-const {getAll, getById, create, update, deleteById, getConsultasByMedId} = require('../controllers/consulta');
+const {upload} = require('../libs/multer');
+const {getAll, getById, create, update, deleteById, getConsultasByMedId, createWithFile} = require('../controllers/consulta');
 
 //Get all
 router.get('/consulta', getAll);
@@ -15,5 +15,7 @@ router.put('/consulta/:id',update);
 router.delete('/consulta/:id', deleteById);
 //get consultas by id medico
 router.get('/consultasByIdMedico/:id', getConsultasByMedId);
+//post con archivo
+router.post('/consultaFile', createWithFile);
 
 module.exports = router;

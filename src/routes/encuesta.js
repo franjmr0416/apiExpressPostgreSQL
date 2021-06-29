@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 
-const {getAll, getById, create, update, deleteById} = require('../controllers/encuesta');
+const {getAll, getById, create, update, deleteById, registro} = require('../controllers/encuesta');
 
 //Get all
 router.get('/encuesta', getAll);
@@ -13,5 +13,7 @@ router.post('/encuesta',create);
 router.put('/encuesta/:id',update);
 //Delete
 router.delete('/encuesta/:id', deleteById);
+//resgitrar encuesta
+router.post('/encuestaRegistro', registro);
 
 module.exports = router;
