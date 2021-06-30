@@ -21,6 +21,7 @@ const alertaRoutes = require('./routes/alerta');
 const cuestionariosRoutes = require('./routes/preguntaEncuesta');
 const archivosRoutes = require('./routes/s3');
 const reportesRoutes = require('./routes/reportes');
+const dashboardRoutes = require('./routes/dashboard');
 
 app.use(express.json());
 app.use(cors());
@@ -51,7 +52,7 @@ app.use(alertaRoutes);
 app.use(cuestionariosRoutes);
 app.use(archivosRoutes);
 app.use(reportesRoutes);
-
+app.use(dashboardRoutes);
 
 const PORT = process.env.PORT || 4000;
 
