@@ -7,7 +7,7 @@ const getCasosEstudiantes = async(req, res) =>{
 };
 //1. get # casos personal
 const getCasosPersonal = async(req, res) =>{
-    const response = await db.query("select u.nombre, u.apellidos, o.fecha, o.resultado, a.carreradepto from usuario u inner join ordenprueba o on u.id = o.idusuario inner join tipousuario t on t.id = u.idtipo inner join area a on a.id = u.idarea where t.tipo = 'Personal Directivo' and o.resultado='Positivo';");
+    const response = await db.query("select u.nombre, u.apellidos, o.fecha, o.resultado, a.carreradepto from usuario u inner join ordenprueba o on u.id = o.idusuario inner join tipousuario t on t.id = u.idtipo inner join area a on a.id = u.idarea where t.tipo = 'Profesor' and o.resultado='Positivo';");
     res.json(response.rows);
 };
 //2. # casos por departameno y carrera
