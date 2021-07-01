@@ -7,12 +7,12 @@ const uploadFile = async(req, res) =>{
   console.log(req.body);
   console.log(req.file.location);
   
-  const { fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora, diagnostico} = req.body;
+  const { fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora} = req.body;
   const evidencia = req.file.location;
 
   await db.query("BEGIN");
-  await db.query('INSERT INTO consulta (fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora, diagnostico ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
-  [fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora, diagnostico]);
+  await db.query('INSERT INTO consulta (fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
+  [fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora]);
   
   await db.query("INSERT INTO evidencias (evidencia) VALUES($1)",[evidencia]);
 
