@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const {upload} = require('./libs/multer');
-const bodyparser = require('body-parser');
 
 //import the Routes
 const areaRoutes = require('./routes/area');

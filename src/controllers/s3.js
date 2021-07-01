@@ -4,8 +4,16 @@ const db = require("../config/db");
 
 //guardar nombre archivo en DB
 const uploadFile = async(req, res) =>{
+  console.log(req.body);
+  console.log(req.file.location);
+  
+  const { fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora, diagnostico} = req.body;
   const evidencia = req.file.location;
+
   await db.query("BEGIN");
+  await db.query('INSERT INTO consulta (fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora, diagnostico ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
+  [fecha, descripcion, tipocita, sospechoso, idmedico, idpaciente, hora, diagnostico]);
+  
   await db.query("INSERT INTO evidencias (evidencia) VALUES($1)",[evidencia]);
 
   const lastIdConsulta = await db.query("select id from consulta order by id desc limit 1;")
@@ -16,7 +24,8 @@ const uploadFile = async(req, res) =>{
   //insertar en tabla relacion consultaEvidencia
   await db.query("insert into consultaevidencia (idconsulta, idevidencia) VALUES ($1, $2)", [idConsulta, idEvidencia]);
   await db.query("COMMIT");
-  res.json({mensaje: 'Archivo subido'});
+  
+  res.json({mensaje: 'Cita creada subido'});
 };
 
 const getAll = async(req, res) =>{

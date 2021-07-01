@@ -16,6 +16,6 @@ router.delete('/consulta/:id', deleteById);
 //get consultas by id medico
 router.get('/consultasByIdMedico/:id', getConsultasByMedId);
 //post con archivo
-router.post('/consultaFile', createWithFile);
+router.post('/consultaFile',createWithFile);
 
 module.exports = router;
