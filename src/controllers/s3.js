@@ -34,9 +34,10 @@ const uploadFile = async(req, res) =>{
   
 };
 
-const getAll = async(req, res) =>{
-  console.log(req.file.location);
-  res.json({mensaje: 'entro a  get archivos'});
+const getbyIdConsulta = async(req, res) =>{
+  const id = req.params.id;
+  const response = await db.query("select evidencia from evidencias e inner join consultaevidencia c on e.id = c.idevidencia inner join consulta c2 on c2.id = c.idconsulta where c2.id = $1;",[id]);
+  res.json(response.rows);
 
 };
 
@@ -46,6 +47,6 @@ const get = (req, res) =>{
 
 module.exports = {
     uploadFile,
-    getAll,
+    getbyIdConsulta,
     get
   };
